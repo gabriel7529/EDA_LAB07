@@ -188,10 +188,12 @@ public String remove(Object key) {
 		return aux;
 	}
 ```
-I.I Uso del Hash <br>
-Para la primera implementación del hash se hace uso en la clase Test1.java para comprobar su funcionalidad el cual se hace uso del put y el toString dando el siguiente resultado:
-<img src="Img/Imagen_1.png" alt="Prueba del primer hash">
-			
+II Uso del Hash y Solucionando Colisiones <br>
+Para la primera implementación del hash se hace uso en la clase Test1.java para comprobar su funcionalidad el cual se hace uso del put y el toString dando el siguiente resultado:<br>
+<img src="Img/Imagen_1.png" alt="Prueba del primer Hash"><br>
+Como vemos estan funcionando ambos métodos y nos da detalles dec como esta posicionando los valores, ahora en la siguiente prueba se realiza pruebas con respecto al get y remove, también el put con la misma clave.<br>
+<img src="Img/Imagen_2.png" alt="Segunda prueba del primer Hash"><br>
+En esta ocasión, como estaba previsto se hace la correcta ejecución de los métodos, no obstante el put lo que realiza es eliminar el valor que se encuentra y por último inserta el valor nuevo, este acción denomida colisión se quiere ser tratado de otra forma, el cuál se propone el encadenamiento (lista enlazada).
            </li>
           </ul>
           </td></tr>   
