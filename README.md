@@ -157,6 +157,41 @@ En este método se hace uso del key para transformalo en un valor que permita po
 ```
 ***d) remove***<br>
 En este método se elabora un hash con la clave dandonos un valor, que se busca en el table si se encuentra y retornar el valor, esto por medio de un while y condicionales que se ven a continuación.
+```java
+public String remove(Object key) {
+		int bucket = hash(key);
+		String aux = null;
+
+		if (table[bucket] == null) {
+			return null;
+		}
+
+		if (table[bucket].key.equals(key)) {
+			aux = table[bucket].value;
+			table[bucket] = table[bucket].next;
+			count--;
+			return aux;
+		}
+
+		ListNode prev = table[bucket];
+		ListNode curr = prev.next;
+		while (curr != null && !curr.key.equals(key)) {
+			curr = curr.next;
+			prev = curr;
+		}
+
+		if (curr != null) {
+			aux = prev.next.value;
+			prev.next = curr.next;
+			count--;
+		}
+		return aux;
+	}
+```
+I.I Uso del Hash <br>
+Para la primera implementación del hash se hace uso en la clase Test1.java para comprobar su funcionalidad el cual se hace uso del put y el toString dando el siguiente resultado:
+<img src="Img/Imagen_1.png" alt="Prueba del primer hash">
+			
            </li>
           </ul>
           </td></tr>   
