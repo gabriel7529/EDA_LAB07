@@ -3,10 +3,11 @@ public class Hash implements HashTable {
 	private int count;
 
 	private static class ListNode {
-		String key;
-		Integer value;
+		Integer key;
+		String value;
 		ListNode next;
 	}
+	
 
 	public Hash() {
 		table = new ListNode[32];
@@ -14,7 +15,7 @@ public class Hash implements HashTable {
 
 	public Hash(int M) {
 		if (M <= 0)
-			throw new IllegalArgumentException("Illegal table size");
+			throw new IllegalArgumentException("Valor no permitido");
 		table = new ListNode[M];
 	}
 
@@ -60,7 +61,7 @@ public class Hash implements HashTable {
 	}
 
 	@Override
-	public Integer get(String key) {
+	public String get(Integer key) {
 		int bucket = hash(key);  
 	      ListNode list = table[bucket]; 
 	      while (list != null) {
@@ -73,7 +74,7 @@ public class Hash implements HashTable {
 	}
 
 	@Override
-	public Integer put(String key, Integer value) {
+	public String put(Integer key, String value) {
 		assert key != null : "The key must be non-null";
 	      
 	      int bucket = hash(key); 
@@ -89,7 +90,7 @@ public class Hash implements HashTable {
 	      
 	      
 	      if (list != null) {
-	    	 int aux = list.value;
+	    	 String aux = list.value;
 	         list.value = value;
 	         return aux;
 	      }
@@ -110,9 +111,9 @@ public class Hash implements HashTable {
 	}
 
 	@Override
-	public Integer remove(Object key) {
+	public String remove(Object key) {
 		int bucket = hash(key);
-		Integer aux = null;
+		String aux = null;
 
 		if (table[bucket] == null) {
 			return null;
@@ -168,6 +169,15 @@ public class Hash implements HashTable {
 			}
 		}
 		table = newtable; 
-	} 
-
+	}
+	
+	public String toString() {
+		String str="";
+		for(int i=0; i<table.length;i++) {
+			if(table[i] != null )
+				str += i +"{" + "key: " + table[i].key + ", " + "value: " +table[i].value  +"}\n";
+		}
+		return str;
+	}
+	
 }
