@@ -149,12 +149,14 @@ En dicho método se recorre todos lo elementos del table por medio un nuevo arra
 	}
 ```
 ***c) hash***<br>
-En este método se hace uso del key para transformalo en una clave que permita  posicionarlo dentro de table
+En este método se hace uso del key para transformalo en un valor que permita posicionarlo dentro de table.
 ```java
 	private int hash(Object key) {
 		return (Math.abs(key.hashCode())) % table.length;
 	}
 ```
+***d) remove***<br>
+En este método se elabora un hash con la clave dandonos un valor, que se busca en el table si se encuentra y retornar el valor, esto por medio de un while y condicionales que se ven a continuación.
            </li>
           </ul>
           </td></tr>   
