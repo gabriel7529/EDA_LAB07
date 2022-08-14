@@ -32,7 +32,7 @@
 <tr><td>ASIGNATURA:</td><td colspan="5">Estructura de Datos y Algoritmos</td></tr>
 <tr><td>TÍTULO DE LA PRÁCTICA:</td><td colspan="5">Hash</td></tr>
 <tr>
-<td>NÚMERO DE PRÁCTICA:</td><td>05</td><td>AÑO LECTIVO:</td><td>2022 A</td><td>NRO. SEMESTRE:</td><td>III</td>
+<td>NÚMERO DE PRÁCTICA:</td><td>07</td><td>AÑO LECTIVO:</td><td>2022 A</td><td>NRO. SEMESTRE:</td><td>III</td>
 </tr>
 <tr>
 <td>FECHA DE PRESENTACIÓN:</td><td>14-Agosto-2022</td><td>HORA DE PRESENTACIÓN:</td><td colspan="3">11:30</td>
@@ -61,7 +61,100 @@
         <tr><td colspan="6">I. SOLUCIÓN DE EJERCICIOS/PROBLEMAS
 	    <ul>
 	        <li>
-		I. Implementación del HashTable
+		I. Implementación del HashTable<br>
+		 Se uso la interfaz de HashTable dado por el docente, el cuál se edito para probarlo en el Test1.java, para integrar esta interfaz se creo la clase Hash, en dicha clase tiene los siguientes atributos:<br>
+		
+```java
+		public class Hash implements HashTable {
+	            private ListNode[] table;
+	            private int count;
+
+		   private static class ListNode {
+	            	Integer key;
+		    	String value;
+		    	ListNode next;
+		   }
+	
+
+		    public Hash() {
+			table = new ListNode[32];
+		    }
+
+		public Hash(int M) {
+			if (M <= 0)
+				throw new IllegalArgumentException("Valor no permitido");
+			table = new ListNode[M];
+		}
+```
+Luego se implementa los métodos dado por la interfaz que los más importantes y descatados son:<br>
+***a) Put***<br>
+En este método como indica usa el valor del Key para buscar en el array table la posición que va ir key si esta ha sido colocado antes, en tal caso que no y ya se lleno las 3/4 partes del array se aplica el resize, sino por medio del hash, con ayuda de la key averigua que posición le corresponde en el array, se aumenta el contador y se retorna un null. 
+```java
+	public String put(Integer key, String value) {
+		assert key != null : "The key must be non-null";
+	      
+	      int bucket = hash(key); 
+	      
+	      ListNode list = table[bucket];
+	                                     
+	      while (list != null) {
+	            
+	         if (list.key.equals(key))
+	            break;
+	         list = list.next;
+	      }
+	      
+	      
+	      if (list != null) {
+	    	 String aux = list.value;
+	         list.value = value;
+	         return aux;
+	      }
+	      else {
+	             
+	         if (count >= 0.75*table.length) {
+	            resize();
+	            bucket = hash(key);  
+	         }
+	         ListNode newNode = new ListNode();
+	         newNode.key = key;
+	         newNode.value = value;
+	         newNode.next = table[bucket];
+	         table[bucket] = newNode;
+	         count++;  
+	      }
+	      return null;
+	}
+```
+***b) resize***<br>
+En dicho método se recorre todos lo elementos del table por medio un nuevo array de ListNode, el cual duplica su tamaño, esta coloca los elementos en nuevas posiciones si estas no estan en estado null.
+```java
+	private void resize() {
+		ListNode[] newtable = new ListNode[table.length * 2];
+		for (int i = 0; i < table.length; i++) {
+
+			ListNode list = table[i];
+			while (list != null) {
+
+				ListNode next = list.next; 
+
+				int hash = (Math.abs(list.key.hashCode())) % newtable.length;
+
+				list.next = newtable[hash];
+				newtable[hash] = list;
+				list = next; 
+			}
+		}
+		table = newtable; 
+	}
+```
+***c) hash***<br>
+En este método se hace uso del key para transformalo en una clave que permita  posicionarlo dentro de table
+```java
+	private int hash(Object key) {
+		return (Math.abs(key.hashCode())) % table.length;
+	}
+```
            </li>
           </ul>
           </td></tr>   
