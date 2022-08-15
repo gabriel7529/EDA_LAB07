@@ -302,7 +302,7 @@ Luego en el toString, para que impriman más elementos en el mismo indice se pon
 	}			
 ```
 Se realiza una prueba con el Test1.java realizando dichos procesos, mostrando el siguiente resultado:<br>
-<img src="Img/Imagenes_3.png" alt="Muestra de las colisiones"><br>
+<img src="Img/Imagen_3.png" alt="Muestra de las colisiones"><br>
 			
 IV Integrando en el User<br>
 Se cambia la interfaz para poder usar la clase User en los parametros y se módificas las variables para que puedan aceptar a User, y en la clase User se crea un toString con la finalidad de mostrar mejor los resultados.
@@ -322,10 +322,10 @@ Dando el Resultado esperado y mostrando una mayor efectividad en cuanto al uso d
           </td></tr>   
         <tr>
 	    <td colspan="6">
-	        IV. CONCLUSIONES
+	        V. CONCLUSIONES
                 <ul dir="auto">
 		    <li>
-			    Como se conclusión se deja en claro que el Hash es una estructura bastante util, al momento de posicionar y organizar los elementos, para que la manipulación de estos sea más efectivo y brinde un mejor uso de la memoria, mejorando también la velocidad, se puede usar distintas soluciones para las colusiones que es un problema común que tiene este tipo de estructura; por ultimo esta estructura nos muestra una manera más sencilla de poder almacenar datos grandes sin la necesidad de hacer un uso exagerado de memoria."
+			    Como conclusión se deja en claro que el Hash es una estructura bastante util, al momento de posicionar y organizar los elementos, para que la manipulación de estos sea más efectivo y brinde un mejor uso de la memoria, mejorando también la velocidad, se puede usar distintas soluciones para las colusiones que es un problema común que tiene este tipo de estructura; por ultimo esta estructura nos muestra una manera más sencilla de poder almacenar datos grandes sin la necesidad de hacer un uso exagerado de memoria.
 		    </li>
 		</ul>
 	    </td>
