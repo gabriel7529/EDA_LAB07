@@ -3,11 +3,10 @@ package HashTable;
 public class Hash implements HashTable {
 	private ListNode[] table;
 	private int count;
-	private int count2;
 
 	private static class ListNode {
 		Integer key = null;
-		String value = null;
+		User value = null;
 		ListNode next = null;
 		ListNode nextList = null;
 
@@ -28,7 +27,7 @@ public class Hash implements HashTable {
 
 	@Override
 	public int size() {
-		return count + count2;
+		return count;
 	}
 
 	@Override
@@ -73,14 +72,14 @@ public class Hash implements HashTable {
 		while (list != null) {
 
 			if (list.key.equals(key))
-				return list.value;
+				return list.value.toString();
 			list = list.next;
 		}
 		return null;
 	}
 
 	@Override
-	public String put(Integer key, String value) {
+	public String put(Integer key, User value) {
 		assert key != null : "The key must be non-null";
 
 		int bucket = hash(key);
@@ -100,7 +99,7 @@ public class Hash implements HashTable {
 				aux.key = list.key;
 				aux.value = list.value;
 				list.nextList = aux;
-				count2++;
+				count++;
 			} else {
 				ListNode aux = list.nextList;
 				while (aux.nextList != null)
@@ -109,10 +108,10 @@ public class Hash implements HashTable {
 				nuevo.key = list.key;
 				nuevo.value = list.value;
 				aux.nextList = nuevo;
-				count2++;
+				count++;
 
 			}
-			String aux = list.value;
+			String aux = list.value.toString();
 			list.value = value;
 			return aux;
 		} else {
@@ -136,7 +135,7 @@ public class Hash implements HashTable {
 			newNode.next = table[bucket];
 			newNode.nextList = table[bucket];
 			table[bucket] = newNode;
-			count2++;
+			count++;
 
 		}
 		return null;
@@ -152,7 +151,7 @@ public class Hash implements HashTable {
 		}
 
 		if (table[bucket].key.equals(key)) {
-			aux = table[bucket].value;
+			aux = table[bucket].value.toString();
 			table[bucket] = table[bucket].next;
 			count--;
 			return aux;
@@ -166,7 +165,7 @@ public class Hash implements HashTable {
 		}
 
 		if (curr != null) {
-			aux = prev.next.value;
+			aux = prev.next.value.toString();
 			prev.next = curr.next;
 			count--;
 		}

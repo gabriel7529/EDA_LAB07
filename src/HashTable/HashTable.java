@@ -1,3 +1,4 @@
+package HashTable;
 public interface HashTable{
     /**
      * Retorna el numero de clave-valor registrado en la tabla hash.
@@ -60,7 +61,7 @@ public interface HashTable{
      * @throws NullPointerException si la clave o valor son nulos
      * @throws ErrorException para otros tipos de error
      */
-    String put(Integer key, String value);
+    String put(Integer key, User value);
 
     /**
      * Elimina el registro de una clave, si la clave existe 

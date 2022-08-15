@@ -1,3 +1,4 @@
+package HashTable;
 public class User {
 	private int id;
 	private String name;
@@ -22,4 +23,10 @@ public class User {
 	    result = prime * result + ((name == null) ? 0 : name.hashCode());
 	    return result;
 	}
+	
+	public String toString() {
+		String str = "ID:" + id + "---> email: " + email + "---> name: " + name;
+		return str;
+	}
+
 }
