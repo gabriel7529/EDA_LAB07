@@ -188,12 +188,117 @@ public String remove(Object key) {
 		return aux;
 	}
 ```
-II Uso del Hash y Solucionando Colisiones <br>
+Los métodos que se alteran para que cubran las colisiones son el método put y el método toString; en el caso del put se integra una condición para cuando tenga indice o claves iguales, este permita ver si tiene un nextList, en tal caso que tenga se aplica un ciclo para poner el dato y sino solo pone el dato al final.<br>
+```java
+	public String put(Integer key, String value) {
+		assert key != null : "The key must be non-null";
+
+		int bucket = hash(key);
+
+		ListNode list = table[bucket];
+
+		while (list != null) {
+
+			if (list.key == key) {
+				break;
+			}
+			list = list.next;
+		}
+		if (list != null) {
+			if (list.nextList == null) {
+				ListNode aux = new ListNode();
+				aux.key = list.key;
+				aux.value = list.value;
+				list.nextList = aux;
+				count2++;
+			} else {
+				ListNode aux = list.nextList;
+				while (aux.nextList != null)
+					aux = aux.nextList;
+				ListNode nuevo = new ListNode();
+				nuevo.key = list.key;
+				nuevo.value = list.value;
+				aux.nextList = nuevo;
+				count2++;
+
+			}
+			String aux = list.value;
+			list.value = value;
+			return aux;
+		} else {
+			if (count >= 0.75 * table.length) {
+				resize();
+				bucket = hash(key);
+			}
+			if (table[bucket] == null) {
+				ListNode newNode = new ListNode();
+				newNode.key = key;
+				newNode.value = value;
+				newNode.next = table[bucket];
+				table[bucket] = newNode;
+				count++;
+				return null;
+			}
+
+			ListNode newNode = new ListNode();
+			newNode.key = key;
+			newNode.value = value;
+			newNode.next = table[bucket];
+			newNode.nextList = table[bucket];
+			table[bucket] = newNode;
+			count2++;
+
+		}
+		return null;
+	}			
+```
+Luego en el toString, para que impriman más elementos en el mismo indice se pone una condicional con un ciclo, el cuál permita dectectar a los ListNode que tenga un nextList y el ciclo es para iterrar sobre esta lista.<br>
+```java
+	public String toString() {
+		String str = "";
+		for (int i = 0; i < table.length; i++) {
+			if (table[i] != null) {
+				str += "Indice " + i + ": " + "{" + "key: " + table[i].key + ", " + "value: " + table[i].value ;
+				if (table[i].nextList != null) {
+					ListNode count = table[i];
+					while (count.nextList != null) {
+						str += "} " + count.nextList;
+						count = count.nextList;
+					}
+				}
+				str += "}\n";
+			}
+		}
+		return str;
+	}			
+```
+			
+II Uso del Hash <br>
 Para la primera implementación del hash se hace uso en la clase Test1.java para comprobar su funcionalidad el cual se hace uso del put y el toString dando el siguiente resultado:<br>
 <img src="Img/Imagen_1.png" alt="Prueba del primer Hash"><br>
 Como vemos estan funcionando ambos métodos y nos da detalles dec como esta posicionando los valores, ahora en la siguiente prueba se realiza pruebas con respecto al get y remove, también el put con la misma clave.<br>
 <img src="Img/Imagen_2.png" alt="Segunda prueba del primer Hash"><br>
 En esta ocasión, como estaba previsto se hace la correcta ejecución de los métodos, no obstante el put lo que realiza es eliminar el valor que se encuentra y por último inserta el valor nuevo, este acción denomida colisión se quiere ser tratado de otra forma, el cuál se propone el encadenamiento (lista enlazada).
+
+III Solucionando Colisiones
+Para visualizar mejor los resultados en el toString, se hace uso de un método de la clase integrada a Hash, y también un atributo aparte para que solucione las colisiones y permita recibir claves iguales.<br>
+```java
+public class Hash implements HashTable {
+	private ListNode[] table;
+	private int count;
+	private int count2;
+
+	private static class ListNode {
+		Integer key = null;
+		String value = null;
+		ListNode next = null;
+		ListNode nextList = null;
+
+		public String toString() {
+			return " {key: " + key + ", " + "value: " + value + " } ";
+		}
+	}
+```
            </li>
           </ul>
           </td></tr>   
