@@ -3,6 +3,7 @@ package HashTable;
 public class Hash implements HashTable {
 	private ListNode[] table;
 	private int count;
+	private int count2;
 
 	private static class ListNode {
 		Integer key = null;
@@ -27,7 +28,7 @@ public class Hash implements HashTable {
 
 	@Override
 	public int size() {
-		return count;
+		return count + count2;
 	}
 
 	@Override
@@ -62,7 +63,6 @@ public class Hash implements HashTable {
 				return true;
 			list = list.next;
 		}
-
 		return false;
 	}
 
@@ -100,31 +100,44 @@ public class Hash implements HashTable {
 				aux.key = list.key;
 				aux.value = list.value;
 				list.nextList = aux;
+				count2++;
 			} else {
 				ListNode aux = list.nextList;
-				while(aux.nextList != null)
+				while (aux.nextList != null)
 					aux = aux.nextList;
 				ListNode nuevo = new ListNode();
 				nuevo.key = list.key;
 				nuevo.value = list.value;
 				aux.nextList = nuevo;
-				System.out.println("Paso");
+				count2++;
+
 			}
 			String aux = list.value;
 			list.value = value;
 			return aux;
 		} else {
-
 			if (count >= 0.75 * table.length) {
 				resize();
 				bucket = hash(key);
 			}
+			if (table[bucket] == null) {
+				ListNode newNode = new ListNode();
+				newNode.key = key;
+				newNode.value = value;
+				newNode.next = table[bucket];
+				table[bucket] = newNode;
+				count++;
+				return null;
+			}
+
 			ListNode newNode = new ListNode();
 			newNode.key = key;
 			newNode.value = value;
 			newNode.next = table[bucket];
+			newNode.nextList = table[bucket];
 			table[bucket] = newNode;
-			count++;
+			count2++;
+
 		}
 		return null;
 	}
@@ -194,7 +207,7 @@ public class Hash implements HashTable {
 		String str = "";
 		for (int i = 0; i < table.length; i++) {
 			if (table[i] != null) {
-				str += "Indice " + i + ": " + "{" + "key: " + table[i].key + ", " + "value: " + table[i].value;
+				str += "Indice " + i + ": " + "{" + "key: " + table[i].key + ", " + "value: " + table[i].value ;
 				if (table[i].nextList != null) {
 					ListNode count = table[i];
 					while (count.nextList != null) {
