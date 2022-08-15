@@ -1,13 +1,19 @@
+package HashTable;
+
 public class Hash implements HashTable {
 	private ListNode[] table;
 	private int count;
 
 	private static class ListNode {
-		Integer key;
-		String value;
-		ListNode next;
+		Integer key = null;
+		String value = null;
+		ListNode next = null;
+		ListNode nextList = null;
+
+		public String toString() {
+			return " {key: " + key + ", " + "value: " + value + " } ";
+		}
 	}
-	
 
 	public Hash() {
 		table = new ListNode[32];
@@ -26,7 +32,7 @@ public class Hash implements HashTable {
 
 	@Override
 	public boolean isEmpty() {
-		if(count != 0) {
+		if (count != 0) {
 			return true;
 		}
 		return false;
@@ -34,10 +40,10 @@ public class Hash implements HashTable {
 
 	@Override
 	public boolean containsKey(Object key) {
-		int bucket = hash(key); 
-		ListNode list = table[bucket]; 
+		int bucket = hash(key);
+		ListNode list = table[bucket];
 		while (list != null) {
-			
+
 			if (list.key.equals(key))
 				return true;
 			list = list.next;
@@ -48,66 +54,79 @@ public class Hash implements HashTable {
 
 	@Override
 	public boolean containsValue(Object value) {
-		int bucket = hash(value); 
-		ListNode list = table[bucket]; 
+		int bucket = hash(value);
+		ListNode list = table[bucket];
 		while (list != null) {
-			
+
 			if (list.value.equals(value))
 				return true;
 			list = list.next;
 		}
-		
+
 		return false;
 	}
 
 	@Override
 	public String get(Integer key) {
-		int bucket = hash(key);  
-	      ListNode list = table[bucket]; 
-	      while (list != null) {
-	            
-	         if (list.key.equals(key))
-	            return list.value;
-	         list = list.next;  
-	      }
+		int bucket = hash(key);
+		ListNode list = table[bucket];
+		while (list != null) {
+
+			if (list.key.equals(key))
+				return list.value;
+			list = list.next;
+		}
 		return null;
 	}
 
 	@Override
 	public String put(Integer key, String value) {
 		assert key != null : "The key must be non-null";
-	      
-	      int bucket = hash(key); 
-	      
-	      ListNode list = table[bucket];
-	                                     
-	      while (list != null) {
-	            
-	         if (list.key.equals(key))
-	            break;
-	         list = list.next;
-	      }
-	      
-	      
-	      if (list != null) {
-	    	 String aux = list.value;
-	         list.value = value;
-	         return aux;
-	      }
-	      else {
-	             
-	         if (count >= 0.75*table.length) {
-	            resize();
-	            bucket = hash(key);  
-	         }
-	         ListNode newNode = new ListNode();
-	         newNode.key = key;
-	         newNode.value = value;
-	         newNode.next = table[bucket];
-	         table[bucket] = newNode;
-	         count++;  
-	      }
-	      return null;
+
+		int bucket = hash(key);
+
+		ListNode list = table[bucket];
+
+		while (list != null) {
+
+			if (list.key == key) {
+				break;
+			}
+			list = list.next;
+		}
+		if (list != null) {
+			if (list.nextList == null) {
+				ListNode aux = new ListNode();
+				aux.key = list.key;
+				aux.value = list.value;
+				list.nextList = aux;
+			} else {
+				ListNode aux = list.nextList;
+				while(aux.nextList != null)
+					aux = aux.nextList;
+				ListNode nuevo = new ListNode();
+				nuevo.key = list.key;
+				nuevo.value = list.value;
+				aux.nextList = nuevo;
+				System.out.println("Paso");
+			}
+			String aux = list.value;
+			list.value = value;
+			return aux;
+		} else {
+
+			if (count >= 0.75 * table.length) {
+				resize();
+				bucket = hash(key);
+			}
+			ListNode newNode = new ListNode();
+			newNode.key = key;
+			newNode.value = value;
+			newNode.next = table[bucket];
+			table[bucket] = newNode;
+			count++;
+		}
+		return null;
 	}
 
 	@Override
@@ -145,7 +164,7 @@ public class Hash implements HashTable {
 	public void clear() {
 		this.table = new ListNode[32];
 		this.count = 0;
-		
+
 	}
 
 	private int hash(Object key) {
@@ -159,25 +178,33 @@ public class Hash implements HashTable {
 			ListNode list = table[i];
 			while (list != null) {
 
-				ListNode next = list.next; 
+				ListNode next = list.next;
 
 				int hash = (Math.abs(list.key.hashCode())) % newtable.length;
 
 				list.next = newtable[hash];
 				newtable[hash] = list;
-				list = next; 
+				list = next;
 			}
 		}
-		table = newtable; 
+		table = newtable;
 	}
-	
+
 	public String toString() {
-		String str="";
-		for(int i=0; i<table.length;i++) {
-			if(table[i] != null )
-				str += i +"{" + "key: " + table[i].key + ", " + "value: " +table[i].value  +"}\n";
+		String str = "";
+		for (int i = 0; i < table.length; i++) {
+			if (table[i] != null) {
+				str += "Indice " + i + ": " + "{" + "key: " + table[i].key + ", " + "value: " + table[i].value;
+				if (table[i].nextList != null) {
+					ListNode count = table[i];
+					while (count.nextList != null) {
+						str += "} " + count.nextList;
+						count = count.nextList;
+					}
+				}
+				str += "}\n";
+			}
 		}
 		return str;
 	}
-	
 }
