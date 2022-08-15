@@ -197,7 +197,7 @@ Como vemos estan funcionando ambos métodos y nos da detalles dec como esta posi
 <img src="Img/Imagen_2.png" alt="Segunda prueba del primer Hash"><br>
 En esta ocasión, como estaba previsto se hace la correcta ejecución de los métodos, no obstante el put lo que realiza es eliminar el valor que se encuentra y por último inserta el valor nuevo, este acción denomida colisión se quiere ser tratado de otra forma, el cuál se propone el encadenamiento (lista enlazada).
 
-III Solucionando Colisiones
+III Solucionando Colisiones<br>
 Para visualizar mejor los resultados en el toString, se hace uso de un método de la clase integrada a Hash, y también un atributo aparte para que solucione las colisiones y permita recibir claves iguales.<br>
 ```java
 public class Hash implements HashTable {
@@ -301,6 +301,8 @@ Luego en el toString, para que impriman más elementos en el mismo indice se pon
 		return str;
 	}			
 ```
+Se realiza una prueba con el Test1.java realizando dichos procesos, mostrando el siguiente resultado:<br>
+<img src="Img/Imagenes_3.png" alt="Muestra de las colisiones"><br>
            </li>
           </ul>
           </td></tr>   
