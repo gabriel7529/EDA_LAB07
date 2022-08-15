@@ -188,6 +188,35 @@ public String remove(Object key) {
 		return aux;
 	}
 ```
+
+			
+II Uso del Hash <br>
+Para la primera implementación del hash se hace uso en la clase Test1.java para comprobar su funcionalidad el cual se hace uso del put y el toString dando el siguiente resultado:<br>
+<img src="Img/Imagen_1.png" alt="Prueba del primer Hash"><br>
+Como vemos estan funcionando ambos métodos y nos da detalles dec como esta posicionando los valores, ahora en la siguiente prueba se realiza pruebas con respecto al get y remove, también el put con la misma clave.<br>
+<img src="Img/Imagen_2.png" alt="Segunda prueba del primer Hash"><br>
+En esta ocasión, como estaba previsto se hace la correcta ejecución de los métodos, no obstante el put lo que realiza es eliminar el valor que se encuentra y por último inserta el valor nuevo, este acción denomida colisión se quiere ser tratado de otra forma, el cuál se propone el encadenamiento (lista enlazada).
+
+III Solucionando Colisiones
+Para visualizar mejor los resultados en el toString, se hace uso de un método de la clase integrada a Hash, y también un atributo aparte para que solucione las colisiones y permita recibir claves iguales.<br>
+```java
+public class Hash implements HashTable {
+	private ListNode[] table;
+	private int count;
+	private int count2;
+
+	private static class ListNode {
+		Integer key = null;
+		String value = null;
+		ListNode next = null;
+		ListNode nextList = null;
+
+		public String toString() {
+			return " {key: " + key + ", " + "value: " + value + " } ";
+		}
+	}
+```
+
 Los métodos que se alteran para que cubran las colisiones son el método put y el método toString; en el caso del put se integra una condición para cuando tenga indice o claves iguales, este permita ver si tiene un nextList, en tal caso que tenga se aplica un ciclo para poner el dato y sino solo pone el dato al final.<br>
 ```java
 	public String put(Integer key, String value) {
@@ -271,33 +300,6 @@ Luego en el toString, para que impriman más elementos en el mismo indice se pon
 		}
 		return str;
 	}			
-```
-			
-II Uso del Hash <br>
-Para la primera implementación del hash se hace uso en la clase Test1.java para comprobar su funcionalidad el cual se hace uso del put y el toString dando el siguiente resultado:<br>
-<img src="Img/Imagen_1.png" alt="Prueba del primer Hash"><br>
-Como vemos estan funcionando ambos métodos y nos da detalles dec como esta posicionando los valores, ahora en la siguiente prueba se realiza pruebas con respecto al get y remove, también el put con la misma clave.<br>
-<img src="Img/Imagen_2.png" alt="Segunda prueba del primer Hash"><br>
-En esta ocasión, como estaba previsto se hace la correcta ejecución de los métodos, no obstante el put lo que realiza es eliminar el valor que se encuentra y por último inserta el valor nuevo, este acción denomida colisión se quiere ser tratado de otra forma, el cuál se propone el encadenamiento (lista enlazada).
-
-III Solucionando Colisiones
-Para visualizar mejor los resultados en el toString, se hace uso de un método de la clase integrada a Hash, y también un atributo aparte para que solucione las colisiones y permita recibir claves iguales.<br>
-```java
-public class Hash implements HashTable {
-	private ListNode[] table;
-	private int count;
-	private int count2;
-
-	private static class ListNode {
-		Integer key = null;
-		String value = null;
-		ListNode next = null;
-		ListNode nextList = null;
-
-		public String toString() {
-			return " {key: " + key + ", " + "value: " + value + " } ";
-		}
-	}
 ```
            </li>
           </ul>
