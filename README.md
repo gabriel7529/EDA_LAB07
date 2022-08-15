@@ -349,7 +349,7 @@ Dando el Resultado esperado y mostrando una mayor efectividad en cuanto al uso d
     <tbody>
         <tr><td>
             <ul>
-            [1] Weiss M., Data Structures & Problem Solving Using Java, 2010, Addison-Wesley.
+            [1] Weiss M., Data Structures & Problem Solving Using Java, 2010, Addison-Wesley.<br>
             [2] https://www.cpp.edu/~ftang/courses/CS240/lectures/hashing.htm
             </ul></td>
         </tr>
